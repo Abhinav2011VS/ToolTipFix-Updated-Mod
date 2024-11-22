@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "tooltipfix",
+  "version": "${version}",
+  "name": "ToolTip Fix",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/tooltipfix/icon.png",
+  "environment": "client",
+  "mixins": [
+    {
+      "config": "tooltipfix.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

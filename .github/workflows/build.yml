@@ -1,0 +1,52 @@
+name: Build Fabric Mod
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            /home/runner/.gradle
+            .gradle/
+            build/classes
+            build/devlibs
+            build/generated
+            build/loom-cache
+            build/processIncludeJars
+            build/resources
+            build/tmp
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+          
+      - name: Upload Jar
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: mod-jar
+          path: build/libs/*.jar
