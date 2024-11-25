@@ -2,7 +2,6 @@ package net.abhinav.tooltipfix;
 
 import net.minecraft.text.*;
 
-
 public class OrderedTextToTextVisitor implements CharacterVisitor {
     private final MutableText text = Text.empty();
 
